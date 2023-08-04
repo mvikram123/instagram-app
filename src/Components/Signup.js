@@ -33,8 +33,8 @@ const Signup=()=>{
             }
         try{
 
-    //   const response=  await axios.post("https://instagram-express-app.vercel.app/api/auth/signup",{name,email,password});
-            instaApi.post("/auth/signup",{name,email,password});
+      const response=  await axios.post("https://instagram-express-app.vercel.app/api/auth/signup",{name,email,password});
+            // instaApi.post("/auth/signup",{name,email,password});
       setSuccess(response.data.message);
       setError("");
       setToken(response.data.data.token);
