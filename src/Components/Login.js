@@ -1,6 +1,7 @@
-import React,{useState,useContext} from "react";
+import React,{useState,useContext,useEffect} from "react";
 import axios from "axios";
 import  Context from "../context/Context";
+import { useNavigate } from "react-router-dom";
 //import { useNavigate } from "react-router-dom";
 
 
@@ -15,6 +16,14 @@ const Login=()=>{
     let{token,setToken}=useContext(Context);
 
     let{email,password,}=user;
+    let navigate=useNavigate();
+
+
+    useEffect(()=>{
+        if(localStorage.getItem("token")){
+            navigate("/home");
+        }
+    },[])
 
     async function implementLogin(e){
         e.preventDefault();
@@ -31,8 +40,16 @@ const Login=()=>{
       setSuccess(response.data.message);
       setError("");
       setToken(response.data.data.token);
-      console.log("successfully Login");
+    //   add token to localStorage
+      localStorage.setItem("token",response.data.data.token);
+    //   localStorage.setItem("token",token);
+
+        setUser({email:"", password:""});
+
+      alert("successfully Login");
       console.log(response.data);
+      navigate("/Home");
+
 
         }
         catch(error){

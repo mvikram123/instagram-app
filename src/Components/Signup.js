@@ -1,6 +1,7 @@
 import React, {useState,useContext} from "react";
 import axios from "axios";
 import  Context from "../context/Context";
+import instaApi from "../utilities/instaApi";
 
 
 
@@ -11,6 +12,7 @@ const Signup=()=>{
         name:"", email:"", password:"", confirmPassword:"",
     })
     let[success,setSuccess]=useState("");
+    // let [message,setMessage]=useState("");
     let[error,setError]=useState("");
     let{token,setToken}=useContext(Context);
 
@@ -31,7 +33,8 @@ const Signup=()=>{
             }
         try{
 
-      const response=  await axios.post("https://instagram-express-app.vercel.app/api/auth/signup",{name,email,password});
+    //   const response=  await axios.post("https://instagram-express-app.vercel.app/api/auth/signup",{name,email,password});
+            instaApi.post("/auth/signup",{name,email,password});
       setSuccess(response.data.message);
       setError("");
       setToken(response.data.data.token);
@@ -51,6 +54,7 @@ const Signup=()=>{
             {error && <h1>{error}</h1>}
             {success && <h1>{success}</h1>}
             {token && <h1>{token}</h1>}
+            {/* {message && <h1>{message}</h1>} */}
 
             <form onSubmit={implementSignup}>
             <input type="text" placeholder="enter your name" 
